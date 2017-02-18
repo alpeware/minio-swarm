@@ -10,6 +10,8 @@ One-shot script to setup a 4 node cluster
 # git clone https://github.com/alpeware/minio-swarm.git && \
   cd minio-swarm && \
   ./minio-swarm.sh 4 && \
+  echo "Access Key:" &&\
   cat .minio_access_key && \
+  echo "Secret Key:" && \
   cat .minio_secret_key
 ```
