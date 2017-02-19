@@ -2,13 +2,10 @@
 
 NO_REPLICAS=${REPLICAS:-4}
 HOST=${SERVICE:-"minio"}
-TASKS="tasks"
-QUERY="${TASKS}.${HOST}"
-
 VOLUME_PATH=${VOLUME:-"export"}
 
-echo $QUERY
-echo $VOLUME_PATH
+TASKS="tasks"
+QUERY="${TASKS}.${HOST}"
 
 until nslookup "${HOST}"
 do
@@ -24,9 +21,6 @@ do
 done
 
 HOSTNAMES=$(nslookup "${QUERY}" | grep "Address" | awk '{ print $3 }' | sed -e 's/^/http:\/\//' | sed -e "s/$/\/${VOLUME_PATH}/" | tr '\n' ' ' | sed -e 's/[ \t]*$//')
-
-echo "minio server args:"
-echo $HOSTNAMES
 
 # export secrets
 export MINIO_ACCESS_KEY=$(cat /run/secrets/MINIO_ACCESS_KEY)

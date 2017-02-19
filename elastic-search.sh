@@ -28,9 +28,9 @@ docker network create --driver overlay "${NETWORK_NAME}"
 
 docker service create --name "${SERVICE_NAME}" --network "${NETWORK_NAME}" \
   --replicas "${REPLICAS}" --publish "${PORT}":"${PORT}" \
-  --mount type=volume,volume-driver=minio/minfs,source="${VOLUME_NAME}",destination=/usr/share/elasticsearch/data,volume-label="registry" \
-  --env "cluster.name=docker-cluster"="${SERVICE_NAME}" \
-  --env "bootstrap.memory_lock"="true" \
+  --mount type=volume,volume-driver=minio/minfs,source="${VOLUME_NAME}",destination=/usr/share/elasticsearch/data,volume-label="elasticsearch" \
+  --env "cluster.name=docker-cluster=${SERVICE_NAME}" \
+  --env "bootstrap.memory_lock=true" \
   --env "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
-  docker.elastic.co/elasticsearch/elasticsearch:5.2.1 
-
+	--env "http.host=0.0.0.0"
+  elasticsearch:5.2.1
