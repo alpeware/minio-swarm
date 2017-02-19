@@ -32,5 +32,5 @@ docker service create --name "${SERVICE_NAME}" --network "${NETWORK_NAME}" \
   --env "cluster.name=docker-cluster=${SERVICE_NAME}" \
   --env "bootstrap.memory_lock=true" \
   --env "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
-	--env "http.host=0.0.0.0"
+	--env "http.host=0.0.0.0" \
   elasticsearch:5.2.1
